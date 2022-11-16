@@ -29,12 +29,12 @@ output_path = "./output/"
 model_name = "X-101_RGB_60k.pth"
 # model_name = 'R-50_RGB_60k.pth'
 
-# input_file = 'forest_walk_1min.mp4'
+input_file = 'forest_walk_1min.mp4'
 # input_file = 'img_5342.mp4'
 # input_file = 'img_5345.mp4'
 # input_file = 'img_5346.mp4'
 # input_file = 'img_5347.mp4'
-input_file = "img_5348.mp4"
+# input_file = "img_5348.mp4"
 
 
 if __name__ == "__main__":
