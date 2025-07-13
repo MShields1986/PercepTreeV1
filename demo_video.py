@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+# MOV to mp4
+# ffmpeg -i input.mov -vcodec h264 -acodec mp2 output.mp4
+# 4k to 1080
+# ffmpeg -i sample.mp4 -vf scale=1920:1080 sample.mp4
+# 60Hz to 30Hz
+# ffmpeg -i input.mp4 -r 30 output.mp4
+
 """
 Test trained network on a video
 """
@@ -29,12 +37,15 @@ output_path = "./output/"
 model_name = "X-101_RGB_60k.pth"
 # model_name = 'R-50_RGB_60k.pth'
 
-input_file = 'forest_walk_1min.mp4'
+# input_file = 'forest_walk_1min.mp4'
 # input_file = 'img_5342.mp4'
 # input_file = 'img_5345.mp4'
 # input_file = 'img_5346.mp4'
 # input_file = 'img_5347.mp4'
 # input_file = "img_5348.mp4"
+# input_file = "img_5349.mp4"
+# input_file = "img_0797.mp4"
+input_file = "new_4k_30.mp4"
 
 
 if __name__ == "__main__":
@@ -92,7 +103,7 @@ if __name__ == "__main__":
     print(f"Input File {input_file} - Frame Count = {n_frames}")
 
     # VIDEO recorder
-    # Grab the stats from image1 to use for the resultant video
+    # Grab the stats from the input to use for the ouput video
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     video = cv2.VideoWriter(output_path + input_file, fourcc, fps, (w, h), True)
 
@@ -131,13 +142,18 @@ if __name__ == "__main__":
             #                     scale=1,
             #                     instance_mode =  ColorMode.IMAGE     # remove color from image, better see instances
             #     )
+
+            # print(f'kCP X - {outputs_pred["instances"].pred_keypoints[0][0][0]}')
+            # print(f'kCP Y - {outputs_pred["instances"].pred_keypoints[0][0][1]}')
+            # print(f'kCP score - {outputs_pred["instances"].pred_keypoints[0][0][2]}')
+
             out = vid_vis.draw_instance_predictions(
                 crop_frame, outputs_pred["instances"].to("cpu")
             )
 
             vid_frame = out.get_image()
             video.write(vid_frame)
-            cv2.imshow("frame", vid_frame)
+            # cv2.imshow("frame", vid_frame)
 
         nframes += 1
 

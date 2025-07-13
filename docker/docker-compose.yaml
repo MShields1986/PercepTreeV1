@@ -1,0 +1,19 @@
+name: perceptree
+
+services:
+  classifier:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]
+    volumes:
+      - ..:/home/appuser/PercepTreeV1
+      - /dev/dri:/dev/dri
+    command: sleep infinity
+    #restart: unless-stopped
